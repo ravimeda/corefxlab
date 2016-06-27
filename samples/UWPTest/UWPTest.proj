@@ -13,8 +13,9 @@
     <TargetRuntimeIdentifier Condition="'$(IsNetNative)' == 'true'">win10-$(TargetArch)-aot</TargetRuntimeIdentifier>
     <RestoredLibrariesPath>$(MSbuildThisFileDirectory)RestoredOutput\$(TargetRuntimeIdentifier)\</RestoredLibrariesPath>
 
-    <NuGetToolPath Condition="'$(NuGetToolPath)'==''">$(MSBuildThisFileDirectory)NuGet.exe</NuGetToolPath>
-    <SymChkToolPath Condition="'$(SymChkToolPath)'==''">$(MSBuildThisFileDirectory)symchk.exe</SymChkToolPath>
+    <NuGetToolPath Condition="'$(NuGetToolPath)'==''">$(MSBuildThisFileDirectory)\Bin\NuGet.exe</NuGetToolPath>
+    <SymChkToolPath Condition="'$(SymChkToolPath)'=='' and Exists('C:\debuggers\symchk.exe')">C:\debuggers\symchk.exe</SymChkToolPath>
+    <SymChkToolPath Condition="'$(SymChkToolPath)'==''">$(MSBuildThisFileDirectory)\Bin\symchk.exe</SymChkToolPath>
   </PropertyGroup>
 
   <Target Name="RestoreLibraryPackages">
@@ -51,6 +52,7 @@
       <!-- We use the SymChk tool to restore symbols from a symbol server for restored libraries -->
       <SymChkCommand>$(SymChkToolPath)</SymChkCommand>
       <SymChkCommand>$(SymChkCommand) /s $(SymbolPath)</SymChkCommand>
+      <SymChkCommand>$(SymChkCommand) /v $(SymbolPath)</SymChkCommand>
       <SymChkCommand>$(SymChkCommand) /oc $(RestoredLibrariesPath)</SymChkCommand>
       <SymChkCommand>$(SymChkCommand) /if $(RestoredLibrariesPath)*.dll</SymChkCommand>
     </PropertyGroup>
