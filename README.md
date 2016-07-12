@@ -50,11 +50,11 @@ For an overview of all the .NET related projects, have a look at the
 You can get the .NET Core Lab packages from **dotnet-corefxlab** MyGet feed: 
 
 ```
-https://www.myget.org/F/dotnet-corefxlab/api/v2
+https://dotnet.myget.org/F/dotnet-corefxlab/
 
 or
 
-https://www.myget.org/F/dotnet-corefxlab/api/v3/index.json (preview support)
+https://dotnet.myget.org/F/dotnet-corefxlab/api/v3/index.json (preview support)
 ```
 
 You can add this feed among your NuGet sources and install the packages (keep in mind that packages are pre-release packages).
@@ -72,6 +72,9 @@ This project is a part of the [.NET Foundation].
 
 ## Building and Testing
 
-To find out how you can build and test .NET Core, see the [Developer Guide].
+To build the projects in this repo, you have a few options:
 
-[Developer Guide]: https://github.com/dotnet/corefx/blob/master/Documentation/project-docs/developer-guide.md
+* Download or install a new version of the .NET CLI from here for your operating system. Then, simply invoke the tool to build individual projects (dotnet restore and then dotnet build).
+* (On Windows) Invoke build.cmd. This will download an acceptable version of the .NET CLI automatically and use it to build the entire repository. NOTE: Don't invoke `scripts/build.ps1` directly. It requires that some environment be set in order for it to work correctly. `build.cmd` does this.
+* (On Windows) Open the solution file in Visual Studio 2015. NOTE: This requires unreleased plugins to work at this point in time.
+Using VS Code, see https://aka.ms/vscclrdogfood.
